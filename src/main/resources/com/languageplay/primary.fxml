@@ -4,10 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ToolBar?>
 
 <!-- This file (fxml) defines the layout of the UI -->
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.Controller">
-   <children>
-      <Label text="test" fx:id="hero_text" />
-   </children>
-</VBox>
+<BorderPane id="main_container"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.Controller">
+   <top >
+      <ToolBar fx:id="topSection" style="-fx-border-color: red; -fx-border-width: 2;">
+      </ToolBar>
+   </top>
+
+   <center>
+      <Label text="Drag File" />
+   </center>
+
+   <bottom>
+      <Label text="bottom" />
+   </bottom>
+</BorderPane >
