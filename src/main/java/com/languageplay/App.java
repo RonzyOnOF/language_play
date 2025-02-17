@@ -7,9 +7,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.fxml.FXMLLoader;
 
-/**
- * JavaFX App
- */
+/*
+    JavaFX App
+*/
 public class App extends Application {
 
     @Override
@@ -20,7 +20,11 @@ public class App extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root, 800, 500);
 
+        Controller controller = loader.getController();
+        controller.setStage(primaryStage);
+
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 
         primaryStage.show();
 
