@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.fxml.FXMLLoader;
 
+//ben
 /*
     JavaFX App
 */
@@ -14,7 +15,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+
         // load fxml file and display it in the stage
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         Parent root = loader.load();
