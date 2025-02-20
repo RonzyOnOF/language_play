@@ -1,0 +1,20 @@
+.root {
+    -fx-background-color: rgb(33, 32, 32);
+}
+
+Label {
+    -fx-text-fill: white;
+}
+
+HBox {
+    -fx-alignment: center-right;
+}
+
+/* toolbar section can override css properties from being inherited from parent */
+/* have a transition where when hovered on, goes from transparent to blurred transparent */
+#topSection {
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-padding: 5px;
+}
