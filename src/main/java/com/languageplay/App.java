@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.fxml.FXMLLoader;
 
-//ben
 /*
     JavaFX App
 */
@@ -20,6 +19,9 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 800, 500);
+
+        scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
+        System.out.println(scene.getStylesheets());
 
         Controller controller = loader.getController();
         controller.setStage(primaryStage);
