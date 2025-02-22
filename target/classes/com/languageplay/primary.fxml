@@ -13,10 +13,10 @@
 
    <top>
       <ToolBar fx:id="topSection">
-         <HBox alignment="center_left">
-            <Button text="-" />
-            <Button text="full" />
-            <Button text="X"/>
+         <HBox fx:id="toolBarButtonsContainer">
+            <Button styleClass="toolBarButtons" text="-" />
+            <Button styleClass="toolBarButtons" text="full" />
+            <Button styleClass="toolBarButtons" fx:id="close_button" text="X"/>
          </HBox>
       </ToolBar>
    </top>
