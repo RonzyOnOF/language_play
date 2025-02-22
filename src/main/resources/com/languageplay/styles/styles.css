@@ -6,15 +6,28 @@ Label {
     -fx-text-fill: white;
 }
 
-HBox {
-    -fx-alignment: center-right;
+.toolBarButtons {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.toolBarButtons:hover {
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+
+
+#close_button:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
 }
 
 /* toolbar section can override css properties from being inherited from parent */
-/* have a transition where when hovered on, goes from transparent to blurred transparent */
 #topSection {
     -fx-background-color: transparent;
     -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-padding: 5px;
+    -fx-border-width: 0 0 2 0;
 }
