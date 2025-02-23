@@ -6,14 +6,20 @@ Label {
     -fx-text-fill: white;
 }
 
-.toolBarButtons {
+#toolBarButtonsContainer {
+    -fx-alignment: center;
+}
+
+.toolBarButton {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
     -fx-text-fill: white;
+    -fx-pref-height: 33px;
+    -fx-pref-width: 38px;
 }
 
-.toolBarButtons:hover {
+.toolBarButton:hover {
     -fx-text-fill: black;
     -fx-cursor: hand;
     -fx-background-color: white;
@@ -30,4 +36,6 @@ Label {
     -fx-background-color: transparent;
     -fx-border-color: black;
     -fx-border-width: 0 0 2 0;
+    -fx-padding: 0px;
+    -fx-pref-height: 33px;
 }

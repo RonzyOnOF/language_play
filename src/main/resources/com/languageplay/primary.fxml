@@ -7,16 +7,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
 
 <!-- This file (fxml) defines the layout of the UI -->
 <BorderPane fx:id="main_container"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.Controller">
 
    <top>
       <ToolBar fx:id="topSection">
+         <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" />
          <HBox fx:id="toolBarButtonsContainer">
-            <Button styleClass="toolBarButtons" text="-" />
-            <Button styleClass="toolBarButtons" text="full" />
-            <Button styleClass="toolBarButtons" fx:id="close_button" text="X"/>
+            <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
+            <Button styleClass="toolBarButton" text="full" />
+            <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
          </HBox>
       </ToolBar>
    </top>
