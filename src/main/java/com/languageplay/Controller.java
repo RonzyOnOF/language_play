@@ -3,12 +3,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 // This file (Controller) adds logic to fxml file
 public class Controller {
 
     @FXML
     private ToolBar topSection;
+
+    @FXML
+    private Button minimize_button;
 
     private double x;
     private double y;
@@ -18,6 +22,12 @@ public class Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    public void minimizeStage() {
+        if (stage != null) {
+            this.stage.setIconified(true);
+        }
+    }   
     
     public void initialize() {
 
@@ -33,6 +43,11 @@ public class Controller {
                 stage.setY(e.getScreenY() - y);
             }
         });
+
+        minimize_button.setOnMouseClicked(e -> {
+            minimizeStage();
+        });
+
     }
 
 

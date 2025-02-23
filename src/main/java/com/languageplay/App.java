@@ -24,6 +24,8 @@ public class App extends Application {
         System.out.println(scene.getStylesheets());
 
         Controller controller = loader.getController();
+        
+        // gives controller access to stage to perform actions like minimize and closing stage
         controller.setStage(primaryStage);
 
         primaryStage.setScene(scene);
