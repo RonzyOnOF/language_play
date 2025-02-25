@@ -39,3 +39,22 @@ Label {
     -fx-padding: 0px;
     -fx-pref-height: 33px;
 }
+
+.defaultButtonStyling {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: #ED2939;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-padding: 10px 18px;
+}
+
+.defaultButtonStyling:hover {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+    -fx-background-insets: 2; /* Adjust this value to match the border width */
+}
+ 
