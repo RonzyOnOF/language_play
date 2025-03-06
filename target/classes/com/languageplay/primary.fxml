@@ -16,18 +16,16 @@
 
    <top>
       <ToolBar fx:id="topSection">
-
-         <HBox alignment="center_left">
+         <!-- <HBox alignment="center_left">
             <Button text="-" />
             <Button text="full" />
             <Button fx:id="close_button" text="X"/>
-
+         </HBox> -->
          <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" />
          <HBox fx:id="toolBarButtonsContainer">
             <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
             <Button styleClass="toolBarButton" text="full" />
             <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
-
          </HBox>
       </ToolBar>
    </top>
