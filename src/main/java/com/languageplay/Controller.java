@@ -1,5 +1,8 @@
 package com.languageplay;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -9,7 +12,8 @@ public class Controller {
 
     @FXML
     private ToolBar topSection;
-
+    @FXML
+    private Button close_button;
     private double x;
     private double y;
 
@@ -18,7 +22,14 @@ public class Controller {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
+
+    public void close_stage(MouseEvent event) {
+        if (stage != null) {
+            stage.close();
+        }
+
+    }
+
     public void initialize() {
 
         topSection.setOnMousePressed((MouseEvent e) -> {
@@ -33,7 +44,11 @@ public class Controller {
                 stage.setY(e.getScreenY() - y);
             }
         });
-    }
 
+        close_button.setOnMouseClicked(e -> {
+            close_stage(e);
+        });
+
+    }
 
 }

@@ -16,7 +16,7 @@
          <HBox alignment="center_left">
             <Button text="-" />
             <Button text="full" />
-            <Button text="X"/>
+            <Button fx:id="close_button" text="X"/>
          </HBox>
       </ToolBar>
    </top>
