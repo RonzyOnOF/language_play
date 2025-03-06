@@ -6,15 +6,55 @@ Label {
     -fx-text-fill: white;
 }
 
-HBox {
-    -fx-alignment: center-right;
+#toolBarButtonsContainer {
+    -fx-alignment: center;
+}
+
+.toolBarButton {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-pref-height: 33px;
+    -fx-pref-width: 38px;
+}
+
+.toolBarButton:hover {
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+
+
+#close_button:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
 }
 
 /* toolbar section can override css properties from being inherited from parent */
-/* have a transition where when hovered on, goes from transparent to blurred transparent */
 #topSection {
     -fx-background-color: transparent;
     -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-padding: 5px;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 0px;
+    -fx-pref-height: 33px;
 }
+
+.defaultButtonStyling {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-border-color: #ED2939;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-padding: 10px 18px;
+}
+
+.defaultButtonStyling:hover {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+    -fx-background-insets: 2; /* Adjust this value to match the border width */
+}
+ 
