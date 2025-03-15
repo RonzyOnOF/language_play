@@ -16,11 +16,6 @@
 
    <top>
       <ToolBar fx:id="topSection">
-         <!-- <HBox alignment="center_left">
-            <Button text="-" />
-            <Button text="full" />
-            <Button fx:id="close_button" text="X"/>
-         </HBox> -->
          <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" />
          <HBox fx:id="toolBarButtonsContainer">
             <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
@@ -31,7 +26,7 @@
    </top>
 
    <center>
-      <VBox styleClass="centerVBoxContainer" alignment="CENTER" spacing="12">
+      <VBox fx:id="openFileVBox" styleClass="centerVBoxContainer" alignment="CENTER" spacing="12">
          <Label text="Drag Files" />
          <Button fx:id="openFileButton" styleClass="defaultButtonStyling" text="Open Subtitle" />
       </VBox>
