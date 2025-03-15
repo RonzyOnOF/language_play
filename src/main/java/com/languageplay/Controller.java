@@ -1,6 +1,5 @@
 package com.languageplay;
 
-import javafx.application.Platform;
 import java.io.File;
 
 import javafx.event.ActionEvent;
@@ -8,12 +7,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import java.util.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
-// This file (Controller) adds logic to fxml filea
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+// This file (Controller) adds logic to fxml files
 public class Controller {
 
     @FXML
@@ -28,14 +33,25 @@ public class Controller {
     @FXML
     private Button openFileButton;
 
+    @FXML
+    private VBox openFileVBox;
+
+
     private double x;
     private double y;
-    private boolean hasSubtitleFile = false;
-    private boolean hasVideoFile = false;
+
+    // state for checking if there is a subtitle file and video file
+    private BooleanProperty hasSubtitleFile = new SimpleBooleanProperty(false);
+    private BooleanProperty hasVideoFile = new SimpleBooleanProperty(false);
+
+    private File subtitleFile;
+    private File videoFile;
 
     private List<String> subtitleFileExtensions;
+    private List<String> videoFileExtensions;
 
     private Stage stage;
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -79,13 +95,16 @@ public class Controller {
         });
 
         openFileButton.setOnMouseClicked(e -> {
-            openFile(e);
+            if (hasSubtitleFile.get()) {
+                openVideoFile(e);
+            } else {
+                openSubtitleFile(e);
+            }
         });
 
     }
 
-    public void openFile(MouseEvent e) {
-        Button targetButton = (Button) e.getSource();
+    public void openSubtitleFile(MouseEvent e) {
 
         subtitleFileExtensions = new ArrayList<>();
         subtitleFileExtensions.add("*.srt");
@@ -97,15 +116,39 @@ public class Controller {
     
             fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
-            File subtitleFile = fileChooser.showOpenDialog(this.stage);
+            subtitleFile = fileChooser.showOpenDialog(this.stage);
             if (subtitleFile != null) {
-                hasSubtitleFile = true;
+                hasSubtitleFile.set(true);
+                openFileButton.setText("Open video");
                 System.out.println(subtitleFile.getName());
             }
         } catch (Exception exception) {
-            System.err.println(e);
+            System.err.println(exception);
         }
 
     }
 
+    public void openVideoFile(MouseEvent e) {
+
+        videoFileExtensions = new ArrayList<>();
+        videoFileExtensions.add("*.mp4");
+        videoFileExtensions.add("*.mov");
+        videoFileExtensions.add("*.mkv");
+        
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Video File");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("vid", videoFileExtensions));
+            videoFile = fileChooser.showOpenDialog(this.stage);
+            if (videoFile != null) {
+                System.out.println(videoFile.getName());
+                hasVideoFile.set(true);
+            }
+        } catch (Exception exception) {
+            System.err.println(exception);
+        }
+
+    } 
+
 }
+
