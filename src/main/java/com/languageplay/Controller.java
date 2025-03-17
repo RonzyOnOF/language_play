@@ -1,9 +1,14 @@
 package com.languageplay;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.classfile.components.ClassPrinter.Node;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
@@ -51,6 +56,9 @@ public class Controller {
     private List<String> videoFileExtensions;
 
     private Stage stage;
+    private Scene scene;
+    private Parent root;
+    private FXMLLoader loader;
 
 
     public void setStage(Stage stage) {
@@ -143,12 +151,26 @@ public class Controller {
             if (videoFile != null) {
                 System.out.println(videoFile.getName());
                 hasVideoFile.set(true);
+                try {
+                    switchToVideoScene();
+                } catch (IOException err) {
+                    System.err.println(err);
+                }
             }
         } catch (Exception exception) {
             System.err.println(exception);
         }
 
     } 
+
+    public void switchToVideoScene() throws IOException {
+        loader = new FXMLLoader(getClass().getResource("videoScene.fxml"));
+        root = loader.load();
+        scene = new Scene(root, 900, 500);
+        scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
 
