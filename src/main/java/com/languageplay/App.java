@@ -17,11 +17,12 @@ public class App extends Application {
 
         // load fxml file and display it in the stage
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+
         Parent root = loader.load();
         Scene scene = new Scene(root, 800, 500);
 
         scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
-        System.out.println(scene.getStylesheets());
+        // System.out.println(scene.getStylesheets());
 
         Controller controller = loader.getController();
         
