@@ -2,7 +2,6 @@ package com.languageplay;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.classfile.components.ClassPrinter.Node;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,13 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 // This file (Controller) adds logic to fxml files
-public class Controller {
+public class Controller extends AppWindow {
 
     @FXML
     private ToolBar topSection;
 
     @FXML
     private Button close_button;
+
+    @FXML
+    private Button fullScreenButton;
 
     @FXML
     private Button minimize_button;
@@ -41,6 +43,8 @@ public class Controller {
     @FXML
     private VBox openFileVBox;
 
+    // @FXML
+    // private Button switchButton;
 
     private double x;
     private double y;
@@ -55,29 +59,12 @@ public class Controller {
     private List<String> subtitleFileExtensions;
     private List<String> videoFileExtensions;
 
-    private Stage stage;
+    // private Stage stage;
     private Scene scene;
     private Parent root;
     private FXMLLoader loader;
+    private VideoController videoController;
 
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-
-    public void close_stage(MouseEvent event) {
-        if (stage != null) {
-            stage.close();
-        }
-
-    }
-
-    public void minimizeStage() {
-        if (stage != null) {
-            this.stage.setIconified(true);
-        }
-    }   
     
     public void initialize() {
 
@@ -89,17 +76,21 @@ public class Controller {
 
         topSection.setOnMouseDragged(e -> {
             if (stage != null) {
-                stage.setX(e.getScreenX() - x);
-                stage.setY(e.getScreenY() - y);
+                this.stage.setX(e.getScreenX() - x);
+                this.stage.setY(e.getScreenY() - y);
             }
         });
 
         close_button.setOnMouseClicked(e -> {
-            close_stage(e);
+            closeStage();
         });
 
         minimize_button.setOnMouseClicked(e -> {
             minimizeStage();
+        });
+
+        fullScreenButton.setOnMouseClicked(e -> {
+            maximizeStage();
         });
 
         openFileButton.setOnMouseClicked(e -> {
@@ -109,6 +100,14 @@ public class Controller {
                 openSubtitleFile(e);
             }
         });
+
+        // switchButton.setOnMouseClicked(e -> {
+        //     try {
+        //         switchToVideoScene();
+        //     } catch (IOException err) {
+        //         System.err.println(err);
+        //     }
+        // });
 
     }
 
@@ -168,6 +167,8 @@ public class Controller {
         root = loader.load();
         scene = new Scene(root, 900, 500);
         scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
+        videoController = loader.getController();
+        videoController.setStage(this.stage);
         stage.setScene(scene);
         stage.show();
     }
