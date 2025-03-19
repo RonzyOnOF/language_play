@@ -19,7 +19,7 @@
          <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" />
          <HBox fx:id="toolBarButtonsContainer">
             <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
-            <Button styleClass="toolBarButton" text="full" />
+            <Button styleClass="toolBarButton" fx:id="fullScreenButton" text="full" />
             <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
          </HBox>
       </ToolBar>
@@ -29,6 +29,7 @@
       <VBox fx:id="openFileVBox" styleClass="centerVBoxContainer" alignment="CENTER" spacing="12">
          <Label text="Drag Files" />
          <Button fx:id="openFileButton" styleClass="defaultButtonStyling" text="Open Subtitle" />
+         <!-- <Button fx:id="switchButton" text="switch"/> -->
       </VBox>
    </center>
 
