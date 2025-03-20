@@ -43,8 +43,8 @@ public class Controller extends AppWindow {
     @FXML
     private VBox openFileVBox;
 
-    // @FXML
-    // private Button switchButton;
+    @FXML
+    private Button switchButton;
 
     private double x;
     private double y;
@@ -65,7 +65,6 @@ public class Controller extends AppWindow {
     private FXMLLoader loader;
     private VideoController videoController;
 
-    
     public void initialize() {
 
         topSection.setOnMousePressed((MouseEvent e) -> {
@@ -101,13 +100,13 @@ public class Controller extends AppWindow {
             }
         });
 
-        // switchButton.setOnMouseClicked(e -> {
-        //     try {
-        //         switchToVideoScene();
-        //     } catch (IOException err) {
-        //         System.err.println(err);
-        //     }
-        // });
+        switchButton.setOnMouseClicked(e -> {
+            try {
+                switchToVideoScene();
+            } catch (IOException err) {
+                System.err.println(err);
+            }
+        });
 
     }
 
@@ -116,13 +115,14 @@ public class Controller extends AppWindow {
         subtitleFileExtensions = new ArrayList<>();
         subtitleFileExtensions.add("*.srt");
         subtitleFileExtensions.add("*.ass");
+        subtitleFileExtensions.add("*.txt");
 
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Subtitle File");
-    
+
             fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
+                    new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
             subtitleFile = fileChooser.showOpenDialog(this.stage);
             if (subtitleFile != null) {
                 hasSubtitleFile.set(true);
@@ -141,7 +141,7 @@ public class Controller extends AppWindow {
         videoFileExtensions.add("*.mp4");
         videoFileExtensions.add("*.mov");
         videoFileExtensions.add("*.mkv");
-        
+
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Video File");
@@ -160,7 +160,7 @@ public class Controller extends AppWindow {
             System.err.println(exception);
         }
 
-    } 
+    }
 
     public void switchToVideoScene() throws IOException {
         loader = new FXMLLoader(getClass().getResource("videoScene.fxml"));
@@ -174,4 +174,3 @@ public class Controller extends AppWindow {
     }
 
 }
-

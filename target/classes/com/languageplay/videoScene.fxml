@@ -30,6 +30,13 @@
   </center>
 
   <bottom>
+    <HBox styleClass="bottomContainer">
+      
+      <Button styleClass="rewindButton" text="rewind" />
+      <Button styleClass="pauseButton" text="Pause Button" />
+      <Button styleClass="fastForward" text=">>" />
+   </HBox>
+
   </bottom>
 
 </BorderPane>

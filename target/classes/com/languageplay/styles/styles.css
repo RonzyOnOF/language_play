@@ -10,6 +10,10 @@ Label {
     -fx-alignment: center;
 }
 
+.bottomContainer
+{
+    -fx-alignment: center;
+}
 .toolBarButton {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
