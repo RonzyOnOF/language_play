@@ -16,6 +16,9 @@ public class VideoController extends AppWindow {
     Button minimize_button;
 
     @FXML
+    Button fullScreenButton;
+
+    @FXML
     Button close_button;
 
 
@@ -24,6 +27,10 @@ public class VideoController extends AppWindow {
 
         minimize_button.setOnMouseClicked(e -> {
             minimizeStage();
+        });
+
+        fullScreenButton.setOnMouseClicked(e -> {
+            maximizeStage();
         });
 
         close_button.setOnMouseClicked(e -> {
