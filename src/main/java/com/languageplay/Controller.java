@@ -43,8 +43,8 @@ public class Controller extends AppWindow {
     @FXML
     private VBox openFileVBox;
 
-    // @FXML
-    // private Button switchButton;
+    @FXML
+    private Button switchButton;
 
     private double x;
     private double y;
@@ -101,13 +101,13 @@ public class Controller extends AppWindow {
             }
         });
 
-        // switchButton.setOnMouseClicked(e -> {
-        //     try {
-        //         switchToVideoScene();
-        //     } catch (IOException err) {
-        //         System.err.println(err);
-        //     }
-        // });
+        switchButton.setOnMouseClicked(e -> {
+            try {
+                switchToVideoScene();
+            } catch (IOException err) {
+                System.err.println(err);
+            }
+        });
 
     }
 
