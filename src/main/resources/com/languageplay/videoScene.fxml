@@ -7,7 +7,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-
+<?import javafx.scene.layout.StackPane?>
 
 
 
@@ -26,17 +26,16 @@
   </top>
 
   <center>
-    <Label text="Video" />
+    <StackPane fx:id="videoWrapper">
+    </StackPane>
   </center>
 
-   <bottom>
+  <bottom>
     <HBox styleClass="bottomContainer">
-     
       <Button styleClass="rewindButton" text="rewind" />
       <Button styleClass="pauseButton" text="Pause Button" />
       <Button styleClass="fastForward" text=">>" />
-   </HBox>
-
+    </HBox>
   </bottom>
 
 </BorderPane>
