@@ -14,11 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +121,7 @@ public class Controller extends AppWindow {
 
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
-            subtitleFile = fileChooser.showOpenDialog(this.stage);
+            this.subtitleFile = fileChooser.showOpenDialog(this.stage);
             if (subtitleFile != null) {
                 hasSubtitleFile.set(true);
                 openFileButton.setText("Open video");
@@ -146,7 +144,7 @@ public class Controller extends AppWindow {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Video File");
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("vid", videoFileExtensions));
-            videoFile = fileChooser.showOpenDialog(this.stage);
+            this.videoFile = fileChooser.showOpenDialog(this.stage);
             if (videoFile != null) {
                 System.out.println(videoFile.getName());
                 hasVideoFile.set(true);
@@ -169,6 +167,8 @@ public class Controller extends AppWindow {
         scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
         videoController = loader.getController();
         videoController.setStage(this.stage);
+        videoController.setVideoFile(this.videoFile);
+        videoController.setSubFile(this.subtitleFile);
         stage.setScene(scene);
         stage.show();
     }

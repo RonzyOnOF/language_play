@@ -7,6 +7,7 @@ public abstract class AppWindow {
     protected Stage stage;
     protected boolean isFullScreen;
 
+
     // concrete methods
     public void setStage(Stage stage) {
         this.stage = stage;
