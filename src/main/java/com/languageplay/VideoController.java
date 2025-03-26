@@ -2,7 +2,6 @@ package com.languageplay;
 
 
 import java.io.File;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +11,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 
 
@@ -34,6 +34,9 @@ public class VideoController extends AppWindow {
 
     @FXML
     private StackPane videoWrapper;
+
+    @FXML
+    private Label videoInfoText;
 
     private double x;
     private double y;
