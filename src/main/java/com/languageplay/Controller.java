@@ -171,7 +171,7 @@ public class Controller extends AppWindow {
         int resolution[] = utils.getVideoResolution();
         if (resolution[2] == 1) {
             scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/videoSceneStyle.css").toExternalForm());
             videoController = loader.getController();
             videoController.setStage(this.stage);
             videoController.setVideoFile(this.videoFile);

@@ -3,6 +3,7 @@ package com.languageplay;
 
 import java.io.File;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +31,7 @@ public class VideoController extends AppWindow {
     private Button close_button;
 
     @FXML
-    private BorderPane mainVideoContainer;
+    private StackPane mainVideoContainer;
 
     @FXML
     private StackPane videoWrapper;
@@ -66,13 +67,18 @@ public class VideoController extends AppWindow {
             minimizeStage();
         });
 
+        // TO DO: do not stretch to fill when going into full screen
         fullScreenButton.setOnMouseClicked(e -> {
             maximizeStage();
+            videoContainer.fitWidthProperty().bind(mainVideoContainer.widthProperty());
+            videoContainer.fitHeightProperty().bind(mainVideoContainer.widthProperty());
         });
 
         close_button.setOnMouseClicked(e -> {
             closeStage();
         });
+
+        StackPane.setAlignment(topSection, Pos.TOP_CENTER);
 
     }
 
@@ -99,6 +105,7 @@ public class VideoController extends AppWindow {
             Media media = new Media(videoFile.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             videoContainer = new MediaView(mediaPlayer);
+            videoContainer.setPreserveRatio(true);
             mediaPlayer.setAutoPlay(true);
             videoWrapper.getChildren().add(videoContainer);
         }

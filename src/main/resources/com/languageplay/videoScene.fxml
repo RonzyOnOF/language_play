@@ -10,34 +10,27 @@
 <?import javafx.scene.layout.StackPane?>
 
 
+<StackPane fx:id="mainVideoContainer"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.VideoController">
 
-<BorderPane fx:id="mainVideoContainer"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.VideoController">
+  <StackPane fx:id="videoWrapper">
+  </StackPane>
 
+  <ToolBar fx:id="topSection" styleClass="toolbarContainer">
+    <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" />
+      <HBox fx:id="toolBarButtonsContainer">
+        <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
+        <Button styleClass="toolBarButton" fx:id="fullScreenButton" text="full" />
+        <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
+      </HBox>
+  </ToolBar>
 
-  <top>
-    <ToolBar fx:id="topSection" styleClass="toolbarContainer">
-      <Region fx:id="toolbarSpacer" HBox.hgrow="ALWAYS" styleClass="toolbarContainer" />
-        <HBox fx:id="toolBarButtonsContainer">
-          <Button styleClass="toolBarButton" fx:id="minimize_button" text="-" />
-          <Button styleClass="toolBarButton" fx:id="fullScreenButton" text="full" />
-          <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
-        </HBox>
-    </ToolBar>
-  </top>
+  <!-- <HBox styleClass="bottomContainer" visible="false">
+    <Button styleClass="rewindButton" text="rewind" />
+    <Button styleClass="pauseButton" text="Pause Button" />
+    <Button styleClass="fastForward" text=">>" />
+  </HBox> -->
 
-  <center>
-    <StackPane fx:id="videoWrapper">
-    </StackPane>
-  </center>
+</StackPane>
 
-  <bottom>
-    <HBox styleClass="bottomContainer">
-      <Button styleClass="rewindButton" text="rewind" />
-      <Button styleClass="pauseButton" text="Pause Button" />
-      <Button styleClass="fastForward" text=">>" />
-    </HBox>
-  </bottom>
-
-</BorderPane>
 
 

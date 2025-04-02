@@ -1,0 +1,45 @@
+.root {
+    -fx-background-color: rgb(33, 32, 32);
+}
+
+Label {
+    -fx-text-fill: white;
+}
+
+#toolBarButtonsContainer {
+    -fx-alignment: center;
+}
+
+.bottomContainer
+{
+    -fx-alignment: center;
+}
+
+.toolBarButton {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-pref-height: 33px;
+    -fx-pref-width: 38px;
+}
+
+.toolBarButton:hover {
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+
+
+#close_button:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+/* toolbar section can override css properties from being inherited from parent */
+#topSection {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-pref-height: 33px;
+}
+
