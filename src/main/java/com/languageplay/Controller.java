@@ -20,6 +20,9 @@ import javafx.beans.property.SimpleBooleanProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.languageplay.utils.VideoUtils;
+
+
 // This file (Controller) adds logic to fxml files
 public class Controller extends AppWindow {
 
@@ -146,8 +149,11 @@ public class Controller extends AppWindow {
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("vid", videoFileExtensions));
             this.videoFile = fileChooser.showOpenDialog(this.stage);
             if (videoFile != null) {
-                System.out.println(videoFile.getName());
+                // System.out.println(videoFile.getName());
+                System.out.println(videoFile.getAbsolutePath());
                 hasVideoFile.set(true);
+                VideoUtils utils = new VideoUtils(this.videoFile);
+                utils.getVideoResolution();
                 try {
                     switchToVideoScene();
                 } catch (IOException err) {

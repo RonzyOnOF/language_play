@@ -1,5 +1,7 @@
 package com.languageplay.utils;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 
@@ -16,20 +18,22 @@ public class VideoUtils {
         if (file != null) {
             this.videoFile = file;
             this.fileName = file.getName();            
-            this.checkResolutionCommand.append(file.getName());
-            this.checkMetaDataCommand.append(file.getName());
+            this.checkResolutionCommand.append(file.getAbsolutePath());
+            this.checkMetaDataCommand.append(file.getAbsolutePath());
         }
     }
 
 
     public void getVideoResolution() {
-        String os = System.getProperty("os.name").toLowerCase();
 
+        String os = System.getProperty("os.name").toLowerCase();
+        String command = checkResolutionCommand.toString();
+        String[] commandArray = command.split(" ");  // Split by spaces
         // check if on windows or unix based systems and performs appropriate commands
         if (os.contains("win")) {
-            pb = new ProcessBuilder("cmd", "/c", checkResolutionCommand);
+            pb = new ProcessBuilder("cmd", "/c", String.join(" ", commandArray));
         } else {
-            pb = new ProcessBuilder("bash", "-c", checkResolutionCommand);
+            pb = new ProcessBuilder("bash", "-c", String.join(" ", commandArray));
         }
 
         // convert the bottom code into some method
