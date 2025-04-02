@@ -152,8 +152,6 @@ public class Controller extends AppWindow {
                 // System.out.println(videoFile.getName());
                 System.out.println(videoFile.getAbsolutePath());
                 hasVideoFile.set(true);
-                VideoUtils utils = new VideoUtils(this.videoFile);
-                utils.getVideoResolution();
                 try {
                     switchToVideoScene();
                 } catch (IOException err) {
@@ -169,14 +167,21 @@ public class Controller extends AppWindow {
     public void switchToVideoScene() throws IOException {
         loader = new FXMLLoader(getClass().getResource("videoScene.fxml"));
         root = loader.load();
-        scene = new Scene(root, 900, 500);
-        scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
-        videoController = loader.getController();
-        videoController.setStage(this.stage);
-        videoController.setVideoFile(this.videoFile);
-        videoController.setSubFile(this.subtitleFile);
-        stage.setScene(scene);
-        stage.show();
+        VideoUtils utils = new VideoUtils(this.videoFile);
+        int resolution[] = utils.getVideoResolution();
+        if (resolution[2] == 1) {
+            scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/styles.css").toExternalForm());
+            videoController = loader.getController();
+            videoController.setStage(this.stage);
+            videoController.setVideoFile(this.videoFile);
+            videoController.setSubFile(this.subtitleFile);
+            stage.setScene(scene);
+            stage.setWidth((double) resolution[0]);
+            stage.setHeight((double) resolution[1]);
+            stage.show();
+        }
+
     }
 
 }

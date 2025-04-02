@@ -12,6 +12,9 @@ public class VideoUtils {
     ProcessBuilder pb;
     private File videoFile;
     private String fileName;
+    private String resolution;
+    private int width;
+    private int height;
     
 
     public VideoUtils(File file) {
@@ -24,11 +27,14 @@ public class VideoUtils {
     }
 
 
-    public void getVideoResolution() {
+    // returns array of width and height, and returns 1 as 3rd element in array if succesfully retrieved if not 0
+    public int[] getVideoResolution() {
 
         String os = System.getProperty("os.name").toLowerCase();
         String command = checkResolutionCommand.toString();
         String[] commandArray = command.split(" ");  // Split by spaces
+        int res[] = new int[3];
+
         // check if on windows or unix based systems and performs appropriate commands
         if (os.contains("win")) {
             pb = new ProcessBuilder("cmd", "/c", String.join(" ", commandArray));
@@ -42,13 +48,23 @@ public class VideoUtils {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                resolution = line;
             }
             process.waitFor();
+            String resolutionArr[] = resolution.split("x");
+            this.width = Integer.parseInt(resolutionArr[0]);
+            this.height = Integer.parseInt(resolutionArr[1]);
+            res[0] = this.width;
+            res[1] = this.height;
+            res[2] = 1;
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            res[0] = 0;
+            res[1] = 0;
+            res[2] = 0;
         }
+        return res;
 
     }
 
