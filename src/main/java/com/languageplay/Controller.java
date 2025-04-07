@@ -3,7 +3,6 @@ package com.languageplay;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,6 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
@@ -43,9 +41,6 @@ public class Controller extends AppWindow {
 
     @FXML
     private VBox openFileVBox;
-
-    @FXML
-    private Button switchButton;
 
     private double x;
     private double y;
@@ -98,14 +93,6 @@ public class Controller extends AppWindow {
                 openVideoFile(e);
             } else {
                 openSubtitleFile(e);
-            }
-        });
-
-        switchButton.setOnMouseClicked(e -> {
-            try {
-                switchToVideoScene();
-            } catch (IOException err) {
-                System.err.println(err);
             }
         });
 
@@ -168,7 +155,8 @@ public class Controller extends AppWindow {
         loader = new FXMLLoader(getClass().getResource("videoScene.fxml"));
         root = loader.load();
         VideoUtils utils = new VideoUtils(this.videoFile);
-        int resolution[] = utils.getVideoResolution();
+        double resolution[] = utils.getVideoResolution();
+        // getVideoResolution will return a 1 for the 3rd index of the return value if successfully retrieved the video's resolution
         if (resolution[2] == 1) {
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/videoSceneStyle.css").toExternalForm());
@@ -176,9 +164,11 @@ public class Controller extends AppWindow {
             videoController.setStage(this.stage);
             videoController.setVideoFile(this.videoFile);
             videoController.setSubFile(this.subtitleFile);
+            // check to see if video's resolution is greater than user's screen in order to scale appropriately
+            resolution = utils.checkScreenResolution();
             stage.setScene(scene);
-            stage.setWidth((double) resolution[0]);
-            stage.setHeight((double) resolution[1]);
+            stage.setWidth(resolution[0]);
+            stage.setHeight(resolution[1]);
             stage.show();
         }
 

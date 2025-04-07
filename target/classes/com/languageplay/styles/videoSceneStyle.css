@@ -43,3 +43,8 @@ Label {
     -fx-pref-height: 33px;
 }
 
+.controls {
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+}
+

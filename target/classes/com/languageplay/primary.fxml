@@ -29,7 +29,6 @@
       <VBox fx:id="openFileVBox" styleClass="centerVBoxContainer" alignment="CENTER" spacing="12">
          <Label text="Drag Files" />
          <Button fx:id="openFileButton" styleClass="defaultButtonStyling" text="Open Subtitle" />
-         <Button fx:id="switchButton" text="switch"/>
       </VBox>
    </center>
 

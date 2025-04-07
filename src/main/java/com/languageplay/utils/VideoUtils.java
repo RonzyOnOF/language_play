@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
+
 
 public class VideoUtils {
 
@@ -13,8 +16,8 @@ public class VideoUtils {
     private File videoFile;
     private String fileName;
     private String resolution;
-    private int width;
-    private int height;
+    private double width;
+    private double height;
     
 
     public VideoUtils(File file) {
@@ -28,12 +31,12 @@ public class VideoUtils {
 
 
     // returns array of width and height, and returns 1 as 3rd element in array if succesfully retrieved if not 0
-    public int[] getVideoResolution() {
+    public double[] getVideoResolution() {
 
         String os = System.getProperty("os.name").toLowerCase();
         String command = checkResolutionCommand.toString();
         String[] commandArray = command.split(" ");  // Split by spaces
-        int res[] = new int[3];
+        double res[] = new double[3];
 
         // check if on windows or unix based systems and performs appropriate commands
         if (os.contains("win")) {
@@ -52,8 +55,8 @@ public class VideoUtils {
             }
             process.waitFor();
             String resolutionArr[] = resolution.split("x");
-            this.width = Integer.parseInt(resolutionArr[0]);
-            this.height = Integer.parseInt(resolutionArr[1]);
+            this.width = Double.parseDouble(resolutionArr[0]);
+            this.height = Double.parseDouble(resolutionArr[1]);
             res[0] = this.width;
             res[1] = this.height;
             res[2] = 1;
@@ -68,12 +71,39 @@ public class VideoUtils {
 
     }
 
-    // public boolean checkValidVideoFormat(File file) {
+    // checks to see if video resolution is bigger than user's screen size to scale appropriately
+    public double[] checkScreenResolution() {
+        Rectangle2D bounds = Screen.getPrimary().getBounds();
+        double screenWidth = bounds.getWidth();
+        double screenHeight = bounds.getHeight();
 
+        double res[] = new double[3];
+        res[0] = this.width;
+        res[1] = this.height;
+        res[2] = 1;
 
+        if (this.width > screenWidth || this.height > screenHeight) {
+            res = getNewScreenSize(screenWidth, screenHeight);
+        }
 
-    // }
+        return res;
+    }
 
-    // public void 
+    public double[] getNewScreenSize(double screenWidth, double screenHeight) {
+    
+        double res[] = new double[3];
+        double widthScale = screenWidth / this.width;
+        double heightScale = screenHeight / this.height;
+
+        double scaleFactor = Math.min(widthScale, heightScale);
+        
+        double scaledWidth = this.width * scaleFactor;
+        double scaledHeight = this.height * scaleFactor;
+        res[0] = scaledWidth;
+        res[1] = scaledHeight;
+        res[2] = 1;
+
+        return res;
+    }
     
 }

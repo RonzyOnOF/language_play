@@ -2,15 +2,19 @@ package com.languageplay;
 
 
 import java.io.File;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -38,6 +42,12 @@ public class VideoController extends AppWindow {
 
     @FXML
     private Label videoInfoText;
+
+    // @FXML
+    // private Button pauseButton;
+
+    // @FXML
+    // private HBox controlsContainer;
 
     private double x;
     private double y;
@@ -70,15 +80,25 @@ public class VideoController extends AppWindow {
         // TO DO: do not stretch to fill when going into full screen
         fullScreenButton.setOnMouseClicked(e -> {
             maximizeStage();
-            videoContainer.fitWidthProperty().bind(mainVideoContainer.widthProperty());
-            videoContainer.fitHeightProperty().bind(mainVideoContainer.widthProperty());
         });
 
         close_button.setOnMouseClicked(e -> {
             closeStage();
         });
 
+        // controlsContainer.setMaxHeight(50);
+        // controlsContainer.setMaxWidth(50);
+
         StackPane.setAlignment(topSection, Pos.TOP_CENTER);
+        // StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
+
+        // pauseButton.setOnMouseClicked(e -> {
+        //     if (mediaPlayer.getStatus() == Status.PAUSED) {
+        //         mediaPlayer.play();
+        //     } else {
+        //         mediaPlayer.pause();
+        //     }
+        // });
 
     }
 
@@ -106,6 +126,8 @@ public class VideoController extends AppWindow {
             mediaPlayer = new MediaPlayer(media);
             videoContainer = new MediaView(mediaPlayer);
             videoContainer.setPreserveRatio(true);
+            videoContainer.fitWidthProperty().bind(mainVideoContainer.widthProperty());
+            videoContainer.fitHeightProperty().bind(mainVideoContainer.widthProperty());
             mediaPlayer.setAutoPlay(true);
             videoWrapper.getChildren().add(videoContainer);
         }
