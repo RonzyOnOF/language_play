@@ -23,9 +23,13 @@ public class VideoUtils {
     public VideoUtils(File file) {
         if (file != null) {
             this.videoFile = file;
-            this.fileName = file.getName();            
-            this.checkResolutionCommand.append(file.getAbsolutePath());
-            this.checkMetaDataCommand.append(file.getAbsolutePath());
+            this.fileName = file.getName(); 
+
+            String absolutePath = file.getAbsolutePath();
+            String quotedFilePath = "\"" + absolutePath + "\"";
+
+            this.checkResolutionCommand.append(quotedFilePath);
+            this.checkMetaDataCommand.append(quotedFilePath);
         }
     }
 
