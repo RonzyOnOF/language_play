@@ -1,6 +1,5 @@
 package com.languageplay;
 import javafx.stage.Stage;
-import javafx.stage.Screen;
 
 
 public abstract class AppWindow {

@@ -43,11 +43,8 @@ public class VideoController extends AppWindow {
     @FXML
     private Label videoInfoText;
 
-    // @FXML
-    // private Button pauseButton;
-
-    // @FXML
-    // private HBox controlsContainer;
+    @FXML
+    private HBox controlsContainer;
 
     private double x;
     private double y;
@@ -86,19 +83,11 @@ public class VideoController extends AppWindow {
             closeStage();
         });
 
-        // controlsContainer.setMaxHeight(50);
-        // controlsContainer.setMaxWidth(50);
+        controlsContainer.setMaxHeight(50);
+        controlsContainer.setMaxWidth(100);
 
         StackPane.setAlignment(topSection, Pos.TOP_CENTER);
-        // StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
-
-        // pauseButton.setOnMouseClicked(e -> {
-        //     if (mediaPlayer.getStatus() == Status.PAUSED) {
-        //         mediaPlayer.play();
-        //     } else {
-        //         mediaPlayer.pause();
-        //     }
-        // });
+        StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
 
     }
 

@@ -30,9 +30,8 @@
     <Button styleClass="fastForward" text=">>" />
   </HBox> -->
   
-  <!-- <HBox styleClass="controls" fx:id="controlsContainer">
-    <Button styleClass="pauseButton" fx:id="pauseButton" text="||" />
-  </HBox> -->
+  <HBox styleClass="controls" fx:id="controlsContainer">
+  </HBox>
 
 </StackPane>
 
