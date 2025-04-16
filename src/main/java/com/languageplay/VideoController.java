@@ -6,6 +6,8 @@ import java.io.File;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,9 @@ import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+// <HBox styleClass="controls" fx:id="controlsContainer">
+// <Button styleClass="play" fx:id="playButton" />
+// </HBox>
 
 
 public class VideoController extends AppWindow {
@@ -46,13 +51,32 @@ public class VideoController extends AppWindow {
     @FXML
     private HBox controlsContainer;
 
+    @FXML
+    private Button playButton;
+
+    @FXML
+    private Button rewindButton;
+
+    @FXML
+    private Button forwardButton;
+
     private double x;
     private double y;
 
+    private Media videoMedia;
     private MediaView videoContainer;
     private MediaPlayer mediaPlayer;
     private File videoFile;
     private File subtitleFile;
+    private Image playImage = new Image(getClass().getResource("/com/languageplay/images/play-button.png").toExternalForm());
+    private Image pauseImage = new Image(getClass().getResource("/com/languageplay/images/pause.png").toExternalForm());
+    private Image rewindImage = new Image(getClass().getResource("/com/languageplay/images/back.png").toExternalForm());
+    private ImageView rewindImageView = new ImageView(rewindImage);
+    private Image fastForwardImage = new Image(getClass().getResource("/com/languageplay/images/next-button.png").toExternalForm());
+    private ImageView fastForwardImageView = new ImageView(fastForwardImage);
+    private ImageView playImageView = new ImageView();
+
+
 
     // initialize is called when loading file, so trying to access fields like videoFile and subtitleFile will be null when loaded
     public void initialize() {
@@ -74,7 +98,6 @@ public class VideoController extends AppWindow {
             minimizeStage();
         });
 
-        // TO DO: do not stretch to fill when going into full screen
         fullScreenButton.setOnMouseClicked(e -> {
             maximizeStage();
         });
@@ -83,11 +106,49 @@ public class VideoController extends AppWindow {
             closeStage();
         });
 
+        // media playback control methods
+
+        playButton.setOnMouseClicked(e -> {
+            if (videoMedia != null) {
+                if (mediaPlayer.getStatus() == Status.PLAYING) {
+                    mediaPlayer.pause();
+                    playImageView.setImage(playImage);
+                } else {
+                    mediaPlayer.play();
+                    playImageView.setImage(pauseImage);
+                }
+            }
+        });
+
+        rewindButton.setOnMouseClicked(e -> {
+            // not finished yet
+            if (videoMedia != null) {
+                Duration currTime = mediaPlayer.getCurrentTime();
+
+                if (currTime.toSeconds() - 5 <= 0) {
+                    mediaPlayer.seek(Duration.ZERO);
+                }
+            }
+        });
+
+        // need forwardButton functionality:
+
+
+
         controlsContainer.setMaxHeight(50);
-        controlsContainer.setMaxWidth(100);
+        controlsContainer.setMaxWidth(120);
 
         StackPane.setAlignment(topSection, Pos.TOP_CENTER);
         StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
+
+        System.out.println(getClass().getResource("/com/languageplay/images/play-button.png"));
+ 
+        playImageView.setImage(pauseImage);
+        playButton.setGraphic(playImageView);
+
+        rewindButton.setGraphic(rewindImageView);
+        forwardButton.setGraphic(fastForwardImageView);
+
 
     }
 
@@ -111,12 +172,12 @@ public class VideoController extends AppWindow {
 
     private void renderVideo(File videoFile) {
         if (videoFile != null) {
-            Media media = new Media(videoFile.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
+            videoMedia = new Media(videoFile.toURI().toString());
+            mediaPlayer = new MediaPlayer(videoMedia);
             videoContainer = new MediaView(mediaPlayer);
             videoContainer.setPreserveRatio(true);
             videoContainer.fitWidthProperty().bind(mainVideoContainer.widthProperty());
-            videoContainer.fitHeightProperty().bind(mainVideoContainer.widthProperty());
+            videoContainer.fitHeightProperty().bind(mainVideoContainer.heightProperty());
             mediaPlayer.setAutoPlay(true);
             videoWrapper.getChildren().add(videoContainer);
         }

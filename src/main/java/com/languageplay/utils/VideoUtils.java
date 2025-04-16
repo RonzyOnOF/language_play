@@ -51,16 +51,22 @@ public class VideoUtils {
 
         // convert the bottom code into some method
         try {
+
             Process process = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
+
             while ((line = reader.readLine()) != null) {
                 resolution = line;
             }
+
             process.waitFor();
+
             String resolutionArr[] = resolution.split("x");
+
             this.width = Double.parseDouble(resolutionArr[0]);
             this.height = Double.parseDouble(resolutionArr[1]);
+
             res[0] = this.width;
             res[1] = this.height;
             res[2] = 1;
@@ -93,6 +99,7 @@ public class VideoUtils {
         return res;
     }
 
+
     public double[] getNewScreenSize(double screenWidth, double screenHeight) {
     
         double res[] = new double[3];
@@ -103,6 +110,16 @@ public class VideoUtils {
         
         double scaledWidth = this.width * scaleFactor;
         double scaledHeight = this.height * scaleFactor;
+
+
+
+        // TO DO: After sizing down, make it scale to get rid of black bars
+        // after scaling down the video, its exactly equal to user screen and height, so make it a bit smaller
+        if (scaledWidth == screenWidth || scaledHeight == screenHeight) {
+            scaledWidth -= 40;
+            scaledHeight -= 40;
+        }
+
         res[0] = scaledWidth;
         res[1] = scaledHeight;
         res[2] = 1;

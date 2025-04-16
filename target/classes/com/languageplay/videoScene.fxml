@@ -23,14 +23,11 @@
         <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
       </HBox>
   </ToolBar>
-
-  <!-- <HBox styleClass="bottomContainer" visible="false">
-    <Button styleClass="rewindButton" text="rewind" />
-    <Button styleClass="pauseButton" text="Pause Button" />
-    <Button styleClass="fastForward" text=">>" />
-  </HBox> -->
   
   <HBox styleClass="controls" fx:id="controlsContainer">
+    <Button styleClass="controlButton" fx:id="rewindButton" />
+    <Button styleClass="controlButton" fx:id="playButton" />
+    <Button styleClass="controlButton" fx:id="forwardButton" />
   </HBox>
 
 </StackPane>

@@ -89,39 +89,40 @@ public class Controller extends AppWindow {
         });
 
         openFileButton.setOnMouseClicked(e -> {
-            if (hasSubtitleFile.get()) {
-                openVideoFile(e);
-            } else {
-                openSubtitleFile(e);
-            }
+            openVideoFile(e);
+            // if (hasSubtitleFile.get()) {
+            //     openVideoFile(e);
+            // } else {
+            //     openSubtitleFile(e);
+            // }
         });
 
     }
 
-    public void openSubtitleFile(MouseEvent e) {
+    // public void openSubtitleFile(MouseEvent e) {
 
-        subtitleFileExtensions = new ArrayList<>();
-        subtitleFileExtensions.add("*.srt");
-        subtitleFileExtensions.add("*.ass");
-        subtitleFileExtensions.add("*.txt");
+    //     subtitleFileExtensions = new ArrayList<>();
+    //     subtitleFileExtensions.add("*.srt");
+    //     subtitleFileExtensions.add("*.ass");
+    //     subtitleFileExtensions.add("*.txt");
 
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Subtitle File");
+    //     try {
+    //         FileChooser fileChooser = new FileChooser();
+    //         fileChooser.setTitle("Open Subtitle File");
 
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
-            this.subtitleFile = fileChooser.showOpenDialog(this.stage);
-            if (subtitleFile != null) {
-                hasSubtitleFile.set(true);
-                openFileButton.setText("Open video");
-                System.out.println(subtitleFile.getName());
-            }
-        } catch (Exception exception) {
-            System.err.println(exception);
-        }
+    //         fileChooser.getExtensionFilters().addAll(
+    //                 new FileChooser.ExtensionFilter("srt/ass", subtitleFileExtensions));
+    //         this.subtitleFile = fileChooser.showOpenDialog(this.stage);
+    //         if (subtitleFile != null) {
+    //             hasSubtitleFile.set(true);
+    //             openFileButton.setText("Open video");
+    //             System.out.println(subtitleFile.getName());
+    //         }
+    //     } catch (Exception exception) {
+    //         System.err.println(exception);
+    //     }
 
-    }
+    // }
 
     public void openVideoFile(MouseEvent e) {
 
@@ -136,7 +137,6 @@ public class Controller extends AppWindow {
             fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("vid", videoFileExtensions));
             this.videoFile = fileChooser.showOpenDialog(this.stage);
             if (videoFile != null) {
-                // System.out.println(videoFile.getName());
                 System.out.println(videoFile.getAbsolutePath());
                 hasVideoFile.set(true);
                 try {
@@ -167,9 +167,12 @@ public class Controller extends AppWindow {
             // check to see if video's resolution is greater than user's screen in order to scale appropriately
             resolution = utils.checkScreenResolution();
             stage.setScene(scene);
+            System.out.println("Width: " + resolution[0] + " Height: " + resolution[1]);
             stage.setWidth(resolution[0]);
             stage.setHeight(resolution[1]);
             stage.show();
+        } else {
+            System.err.println("Error retrieving video resolution");
         }
 
     }

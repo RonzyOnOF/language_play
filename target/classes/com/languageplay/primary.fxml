@@ -32,7 +32,7 @@
       </VBox>
    </center>
 
-   <bottom>
+   <!-- <bottom>
       <Label text="bottom" />
-   </bottom>
+   </bottom> -->
 </BorderPane >

@@ -45,6 +45,16 @@ Label {
 
 .controls {
     -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
+    -fx-border-width: 2 2 2 2;
+    -fx-alignment: center;
+    -fx-spacing: 15;
+}
+
+.controlButton {
+    -fx-border-color: black;
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 50%; 
+    -fx-background-radius: 50%;
 }
 
