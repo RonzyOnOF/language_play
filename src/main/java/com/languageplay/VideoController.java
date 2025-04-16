@@ -1,6 +1,5 @@
 package com.languageplay;
 
-
 import java.io.File;
 
 import javafx.fxml.FXML;
@@ -24,10 +23,9 @@ import javafx.scene.control.Label;
 // <Button styleClass="play" fx:id="playButton" />
 // </HBox>
 
-
 public class VideoController extends AppWindow {
-        
-    @FXML 
+
+    @FXML
     private ToolBar topSection;
 
     @FXML
@@ -68,17 +66,18 @@ public class VideoController extends AppWindow {
     private MediaPlayer mediaPlayer;
     private File videoFile;
     private File subtitleFile;
-    private Image playImage = new Image(getClass().getResource("/com/languageplay/images/play-button.png").toExternalForm());
+    private Image playImage = new Image(
+            getClass().getResource("/com/languageplay/images/play-button.png").toExternalForm());
     private Image pauseImage = new Image(getClass().getResource("/com/languageplay/images/pause.png").toExternalForm());
     private Image rewindImage = new Image(getClass().getResource("/com/languageplay/images/back.png").toExternalForm());
     private ImageView rewindImageView = new ImageView(rewindImage);
-    private Image fastForwardImage = new Image(getClass().getResource("/com/languageplay/images/next-button.png").toExternalForm());
+    private Image fastForwardImage = new Image(
+            getClass().getResource("/com/languageplay/images/next-button.png").toExternalForm());
     private ImageView fastForwardImageView = new ImageView(fastForwardImage);
     private ImageView playImageView = new ImageView();
 
-
-
-    // initialize is called when loading file, so trying to access fields like videoFile and subtitleFile will be null when loaded
+    // initialize is called when loading file, so trying to access fields like
+    // videoFile and subtitleFile will be null when loaded
     public void initialize() {
 
         topSection.setOnMousePressed((MouseEvent e) -> {
@@ -124,16 +123,26 @@ public class VideoController extends AppWindow {
             // not finished yet
             if (videoMedia != null) {
                 Duration currTime = mediaPlayer.getCurrentTime();
-
-                if (currTime.toSeconds() - 5 <= 0) {
-                    mediaPlayer.seek(Duration.ZERO);
+                Duration fiveSeconds = currTime.subtract(Duration.seconds(5));
+                if (fiveSeconds.lessThan(Duration.ZERO)) {
+                    fiveSeconds = (Duration.ZERO);
                 }
+                mediaPlayer.seek(fiveSeconds);
             }
         });
 
         // need forwardButton functionality:
-
-
+        forwardButton.setOnMouseClicked(e -> {
+            if (videoMedia != null) {
+                Duration currTime = mediaPlayer.getCurrentTime();
+                Duration totalTime = mediaPlayer.getTotalDuration();
+                if (currTime.add(Duration.seconds(5)).greaterThanOrEqualTo(totalTime)) {
+                    mediaPlayer.seek(totalTime);
+                } else {
+                    mediaPlayer.seek(currTime.add(Duration.seconds(5)));
+                }
+            }
+        });
 
         controlsContainer.setMaxHeight(50);
         controlsContainer.setMaxWidth(120);
@@ -142,16 +151,14 @@ public class VideoController extends AppWindow {
         StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
 
         System.out.println(getClass().getResource("/com/languageplay/images/play-button.png"));
- 
+
         playImageView.setImage(pauseImage);
         playButton.setGraphic(playImageView);
 
         rewindButton.setGraphic(rewindImageView);
         forwardButton.setGraphic(fastForwardImageView);
 
-
     }
-
 
     public void setVideoFile(File videoFile) {
         if (videoFile != null) {
@@ -162,7 +169,8 @@ public class VideoController extends AppWindow {
         }
     }
 
-    // for now, it's ok if user doesn't drag sub file, but let them know no sub file was opened or couldn't be opened
+    // for now, it's ok if user doesn't drag sub file, but let them know no sub file
+    // was opened or couldn't be opened
     public void setSubFile(File subtitleFile) {
         this.subtitleFile = subtitleFile;
         if (subtitleFile == null) {
@@ -182,6 +190,5 @@ public class VideoController extends AppWindow {
             videoWrapper.getChildren().add(videoContainer);
         }
     }
-
 
 }
