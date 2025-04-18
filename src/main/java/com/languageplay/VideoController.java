@@ -19,9 +19,6 @@ import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-// <HBox styleClass="controls" fx:id="controlsContainer">
-// <Button styleClass="play" fx:id="playButton" />
-// </HBox>
 
 public class VideoController extends AppWindow {
 
@@ -66,13 +63,11 @@ public class VideoController extends AppWindow {
     private MediaPlayer mediaPlayer;
     private File videoFile;
     private File subtitleFile;
-    private Image playImage = new Image(
-            getClass().getResource("/com/languageplay/images/play-button.png").toExternalForm());
+    private Image playImage = new Image(getClass().getResource("/com/languageplay/images/play-button.png").toExternalForm());
     private Image pauseImage = new Image(getClass().getResource("/com/languageplay/images/pause.png").toExternalForm());
     private Image rewindImage = new Image(getClass().getResource("/com/languageplay/images/back.png").toExternalForm());
     private ImageView rewindImageView = new ImageView(rewindImage);
-    private Image fastForwardImage = new Image(
-            getClass().getResource("/com/languageplay/images/next-button.png").toExternalForm());
+    private Image fastForwardImage = new Image(getClass().getResource("/com/languageplay/images/next-button.png").toExternalForm());
     private ImageView fastForwardImageView = new ImageView(fastForwardImage);
     private ImageView playImageView = new ImageView();
 
@@ -120,7 +115,6 @@ public class VideoController extends AppWindow {
         });
 
         rewindButton.setOnMouseClicked(e -> {
-            // not finished yet
             if (videoMedia != null) {
                 Duration currTime = mediaPlayer.getCurrentTime();
                 Duration fiveSeconds = currTime.subtract(Duration.seconds(5));
@@ -131,7 +125,6 @@ public class VideoController extends AppWindow {
             }
         });
 
-        // need forwardButton functionality:
         forwardButton.setOnMouseClicked(e -> {
             if (videoMedia != null) {
                 Duration currTime = mediaPlayer.getCurrentTime();
@@ -145,7 +138,7 @@ public class VideoController extends AppWindow {
         });
 
         controlsContainer.setMaxHeight(50);
-        controlsContainer.setMaxWidth(120);
+        // controlsContainer.setMaxWidth(120);
 
         StackPane.setAlignment(topSection, Pos.TOP_CENTER);
         StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
@@ -157,6 +150,9 @@ public class VideoController extends AppWindow {
 
         rewindButton.setGraphic(rewindImageView);
         forwardButton.setGraphic(fastForwardImageView);
+
+        // controlsContainer.setVisible(false);
+        // controlsContainer.setDisable(true);
 
     }
 

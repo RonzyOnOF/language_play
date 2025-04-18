@@ -23,6 +23,9 @@
         <Button styleClass="toolBarButton" fx:id="close_button" text="X"/>
       </HBox>
   </ToolBar>
+
+  <!-- <HBox styleClass="subtitleContainer" fx:id="subtitleContainer">
+  </HBox> -->
   
   <HBox styleClass="controls" fx:id="controlsContainer">
     <Button styleClass="controlButton" fx:id="rewindButton" />
