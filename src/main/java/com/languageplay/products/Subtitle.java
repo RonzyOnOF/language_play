@@ -1,8 +1,8 @@
-package com.languageplay.subtitleClasses;
+package com.languageplay.products;
 
 import com.languageplay.utils.SubExtensions;
 
-// this class will handle different kinds of subtitle extensions and performs various methods like re-timing and adjusting subs
+// the 'product' class
 public abstract class Subtitle {
 
     private SubExtensions subFormat;
@@ -20,7 +20,6 @@ public abstract class Subtitle {
 
 
     // abstract methods
-    // public 
     
 
     // concrete classes

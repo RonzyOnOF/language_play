@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.languageplay.utils.VideoUtils;
-import com.languageplay.subtitleClasses.Subtitle;
-// import com.languageplay.subtitleClasses.SrtSubtitle;
-import com.languageplay.subtitleClasses.AssSubtitle;
-
+import com.languageplay.factories.SubtitleFactory;
+import com.languageplay.factories.AssSubtitleFactory;
+import com.languageplay.products.AssSubtitle;
+import com.languageplay.products.Subtitle;
 import com.languageplay.utils.SubExtensions;
 
 
@@ -62,6 +62,7 @@ public class Controller extends AppWindow {
     private SubExtensions subFormat;
     
     // won't know what type of file class to use until run time, so take advantage of polymorphism as each sub class inherits from Subtitle
+    private SubtitleFactory subFactory;
     private ArrayList<Subtitle> subtitles;
 
     private List<String> subtitleFileExtensions;
@@ -198,8 +199,7 @@ public class Controller extends AppWindow {
 
         switch (extension) {
             case "ass":
-                subFormat = SubExtensions.ASS;
-                subtitles = new ArrayList<>();
+                subFactory = new AssSubtitleFactory();
                 break;
             case "srt":
                 subFormat = SubExtensions.SRT;
@@ -210,6 +210,7 @@ public class Controller extends AppWindow {
 
     }
 
+    // first determine file format, then depending on file format, adjust reading, for ex: if ASS, skip lines until subs start, then can start creating objects of subs
     // private void readSubFile(File subFile) {
 
     //     // switch (subFormat) {
