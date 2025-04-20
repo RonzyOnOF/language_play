@@ -92,7 +92,7 @@ public class VideoUtils {
         res[1] = this.height;
         res[2] = 1;
 
-        if (this.width > screenWidth || this.height > screenHeight) {
+        if (this.width >= screenWidth || this.height >= screenHeight) {
             res = getNewScreenSize(screenWidth, screenHeight);
         }
 
@@ -114,10 +114,10 @@ public class VideoUtils {
 
 
         // TO DO: After sizing down, make it scale to get rid of black bars
-        // after scaling down the video, its exactly equal to user screen and height, so make it a bit smaller
-        if (scaledWidth == screenWidth || scaledHeight == screenHeight) {
-            scaledWidth -= 40;
-            scaledHeight -= 40;
+        // after scaling down the video, if its almost size of user's screen, make it a more smaller
+        if ((screenWidth - scaledWidth) < 15 || (screenHeight- scaledHeight) < 15) {
+            scaledWidth -= 200;
+            scaledHeight -= 200;
         }
 
         res[0] = scaledWidth;

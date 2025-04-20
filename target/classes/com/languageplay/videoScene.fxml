@@ -24,13 +24,17 @@
       </HBox>
   </ToolBar>
 
-  <!-- <HBox styleClass="subtitleContainer" fx:id="subtitleContainer">
-  </HBox> -->
+
   
   <HBox styleClass="controls" fx:id="controlsContainer">
     <Button styleClass="controlButton" fx:id="rewindButton" />
     <Button styleClass="controlButton" fx:id="playButton" />
     <Button styleClass="controlButton" fx:id="forwardButton" />
+  </HBox>
+
+
+  <HBox styleClass="subtitleContainer" fx:id="subtitleContainer">
+    <Label styleClass="subtitle" fx:id="subtitleLabel" text="" />
   </HBox>
 
 </StackPane>

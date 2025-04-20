@@ -1,4 +1,6 @@
 package com.languageplay.factories;
+import java.io.File;
+
 import com.languageplay.products.AssSubtitle;
 import com.languageplay.products.Subtitle;
 
@@ -6,9 +8,10 @@ import com.languageplay.products.Subtitle;
 public class AssSubtitleFactory extends SubtitleFactory {
 
     @Override
-    public Subtitle createSubtitles(double startTime, double endTime, String dialogue) {
-        Subtitle subtitle = new AssSubtitle(startTime, endTime, dialogue);
-        return subtitle;
+    public Subtitle createSubtitles(File subFile) {
+
+        return new AssSubtitle(subFile);
+        
     }
     
 }

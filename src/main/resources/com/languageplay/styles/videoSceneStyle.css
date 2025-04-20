@@ -45,7 +45,6 @@ Label {
 
 .controls {
     -fx-pref-height: 50px;
-    /* -fx-border-width: 2 2 2 2; */
     -fx-pref-width: 100%;  /* Make the HBox take the full width */
     -fx-hgrow: always;     /* Ensure the HBox expands horizontally */
     -fx-alignment: center;
@@ -63,5 +62,19 @@ Label {
 
 .controlButton:hover {
     -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.subtitleContainer {
+    -fx-border-width: 5;
+    -fx-translate-y: -50px;
+    -fx-alignment: center;
+    /* -fx-border-color: rgb(155, 15, 15); */
+    -fx-pref-width: 100%;  /* Make the HBox take the full width */
+}
+
+.subtitle {
+    -fx-font-size: 26px;
+    -fx-wrap-text: true;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
 }
 

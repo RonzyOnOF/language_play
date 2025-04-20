@@ -1,12 +1,18 @@
 package com.languageplay.factories;
 
+import java.io.File;
+
+import com.languageplay.products.SrtSubtitle;
+import com.languageplay.products.Subtitle;
 
 // concrete creator
-public abstract class SrtSubtitleFactory {
+public class SrtSubtitleFactory extends SubtitleFactory {
 
-    // public abstract 
+    @Override
+    public Subtitle createSubtitles(File subFile) {
 
-
-
+        return new SrtSubtitle(subFile);
+        
+    }
     
 }

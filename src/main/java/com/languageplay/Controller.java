@@ -23,6 +23,7 @@ import java.util.Scanner;
 import com.languageplay.utils.VideoUtils;
 import com.languageplay.factories.SubtitleFactory;
 import com.languageplay.factories.AssSubtitleFactory;
+import com.languageplay.factories.SrtSubtitleFactory;
 import com.languageplay.products.AssSubtitle;
 import com.languageplay.products.Subtitle;
 import com.languageplay.utils.SubExtensions;
@@ -63,7 +64,7 @@ public class Controller extends AppWindow {
     
     // won't know what type of file class to use until run time, so take advantage of polymorphism as each sub class inherits from Subtitle
     private SubtitleFactory subFactory;
-    private ArrayList<Subtitle> subtitles;
+    private Subtitle subtitle;
 
     private List<String> subtitleFileExtensions;
     private List<String> videoFileExtensions;
@@ -126,7 +127,6 @@ public class Controller extends AppWindow {
                 hasSubtitleFile.set(true);
                 openFileButton.setText("Open video");
                 getSubtitleFormat(this.subtitleFile);
-                System.out.println(subtitleFile.getName());
             }
         } catch (Exception exception) {
             System.err.println(exception);
@@ -168,12 +168,15 @@ public class Controller extends AppWindow {
         double resolution[] = utils.getVideoResolution();
         // getVideoResolution will return a 1 for the 3rd index of the return value if successfully retrieved the video's resolution
         if (resolution[2] == 1) {
+
             scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/videoSceneStyle.css").toExternalForm());
+
             videoController = loader.getController();
             videoController.setStage(this.stage);
             videoController.setVideoFile(this.videoFile);
             videoController.setSubFile(this.subtitleFile);
+            videoController.setSubtitles(this.subtitle);
             // check to see if video's resolution is greater than user's screen in order to scale appropriately
             resolution = utils.checkScreenResolution();
             stage.setScene(scene);
@@ -181,6 +184,7 @@ public class Controller extends AppWindow {
             stage.setWidth(resolution[0]);
             stage.setHeight(resolution[1]);
             stage.show();
+
         } else {
             System.err.println("Error retrieving video resolution");
         }
@@ -197,41 +201,24 @@ public class Controller extends AppWindow {
 
         String extension = subFile.getName().substring(len - 3);
 
+
         switch (extension) {
             case "ass":
+                subFormat = SubExtensions.ASS;
                 subFactory = new AssSubtitleFactory();
                 break;
             case "srt":
                 subFormat = SubExtensions.SRT;
+                subFactory = new SrtSubtitleFactory();
+                // subFactory.createSubtitles(file) is doing srtSubtitleFactory(file)
+                subtitle = subFactory.createSubtitles(this.subtitleFile);
+                subtitle.readSubtitleFile(this.subtitleFile);
+                subtitle.getSubtitles();
                 break;
             default:
                 System.out.println("Sub format not supported at the moment :(");
         }
 
     }
-
-    // first determine file format, then depending on file format, adjust reading, for ex: if ASS, skip lines until subs start, then can start creating objects of subs
-    // private void readSubFile(File subFile) {
-
-    //     // switch (subFormat) {
-    //     //     cas
-    //     // }
-
-    //     // need to make a function that handles each subtitle
-
-    //     try {
-    //         Scanner scan = new Scanner(subFile);
-    //         while (scan.hasNextLine()) {
-    //             switch (subFormat) {
-    //                 case SRT:
-
-    //                     SrtSubtitle subtitleLine = new SrtSubtitle();
-    //             }
-    //         }
-    //     } catch (FileNotFoundException e) {
-    //         System.err.println(e);
-    //     }
-
-    // }
 
 }

@@ -2,13 +2,14 @@ package com.languageplay;
 
 import java.io.File;
 
+import com.languageplay.products.Subtitle;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
@@ -47,6 +48,9 @@ public class VideoController extends AppWindow {
     private HBox controlsContainer;
 
     @FXML
+    private HBox subtitleContainer;
+
+    @FXML
     private Button playButton;
 
     @FXML
@@ -55,8 +59,13 @@ public class VideoController extends AppWindow {
     @FXML
     private Button forwardButton;
 
+    @FXML
+    private Label subtitleLabel;
+
     private double x;
     private double y;
+
+    private Subtitle subtitles;
 
     private Media videoMedia;
     private MediaView videoContainer;
@@ -122,6 +131,9 @@ public class VideoController extends AppWindow {
                     fiveSeconds = (Duration.ZERO);
                 }
                 mediaPlayer.seek(fiveSeconds);
+                if (mediaPlayer.getRate() != 1.0) {
+                    mediaPlayer.setRate(1.0);
+                }
             }
         });
 
@@ -138,12 +150,12 @@ public class VideoController extends AppWindow {
         });
 
         controlsContainer.setMaxHeight(50);
-        // controlsContainer.setMaxWidth(120);
+        subtitleContainer.setMaxHeight(100);
+
 
         StackPane.setAlignment(topSection, Pos.TOP_CENTER);
         StackPane.setAlignment(controlsContainer, Pos.BOTTOM_CENTER);
-
-        System.out.println(getClass().getResource("/com/languageplay/images/play-button.png"));
+        StackPane.setAlignment(subtitleContainer, Pos.BOTTOM_CENTER);
 
         playImageView.setImage(pauseImage);
         playButton.setGraphic(playImageView);
@@ -174,6 +186,32 @@ public class VideoController extends AppWindow {
         }
     }
 
+    // in the future, optimize this by doing binary search since the subtitles are sorted in ascending order
+    public void renderSubs() {
+        if (this.mediaPlayer != null) {
+            // attach event listener to everytime the time changes on video i.e. video is playing
+            mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+
+                double currentTimeSeconds = newTime.toSeconds();
+
+                // Checks to display the correct one
+                for (SubtitleLine sub : subtitles.getSubtitles()) {
+                    // If the current time is within the subtitle's start and end time
+                    if (currentTimeSeconds >= sub.getStartTime() && currentTimeSeconds <= sub.getEndTime()) {
+                        subtitleLabel.setText(sub.getDialogue()); // Show the subtitle text
+                        return;
+                    }
+                }
+                subtitleLabel.setText(""); // Clear subtitles if no match
+            });
+        }
+    }
+
+    // function that takes in Subtitles object which will contain arraylist of SubtitleLine objects
+    public void setSubtitles(Subtitle subtitle) {
+        this.subtitles = subtitle;
+    }
+
     private void renderVideo(File videoFile) {
         if (videoFile != null) {
             videoMedia = new Media(videoFile.toURI().toString());
@@ -182,6 +220,7 @@ public class VideoController extends AppWindow {
             videoContainer.setPreserveRatio(true);
             videoContainer.fitWidthProperty().bind(mainVideoContainer.widthProperty());
             videoContainer.fitHeightProperty().bind(mainVideoContainer.heightProperty());
+            renderSubs();
             mediaPlayer.setAutoPlay(true);
             videoWrapper.getChildren().add(videoContainer);
         }
