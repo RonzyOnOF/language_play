@@ -3,8 +3,10 @@ package com.languageplay;
 import java.io.File;
 
 import com.languageplay.products.Subtitle;
+import com.languageplay.utils.Dictionary;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -16,7 +18,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -62,8 +68,14 @@ public class VideoController extends AppWindow {
     @FXML
     private Label subtitleLabel;
 
+    private Dictionary dictionary;
+
     private double x;
     private double y;
+
+    private Stage definitionStage;
+
+
 
     private Subtitle subtitles;
 
@@ -108,6 +120,8 @@ public class VideoController extends AppWindow {
         close_button.setOnMouseClicked(e -> {
             closeStage();
         });
+
+        
 
         // media playback control methods
 
@@ -168,6 +182,10 @@ public class VideoController extends AppWindow {
 
     }
 
+    public void setDictionary(Dictionary dictionary) {
+        this.dictionary = dictionary;
+    }
+
     public void setVideoFile(File videoFile) {
         if (videoFile != null) {
             this.videoFile = videoFile;
@@ -180,9 +198,72 @@ public class VideoController extends AppWindow {
     // for now, it's ok if user doesn't drag sub file, but let them know no sub file
     // was opened or couldn't be opened
     public void setSubFile(File subtitleFile) {
+
         this.subtitleFile = subtitleFile;
+
         if (subtitleFile == null) {
             System.out.println("sub file is empty");
+        }
+
+    }
+
+    public void handleHover(MouseEvent e) {
+
+        Label label = (Label) e.getSource();
+
+        if (e.getEventType() == MouseEvent.MOUSE_ENTERED) {
+
+            mediaPlayer.pause();
+
+            try {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("definitionScene.fxml"));
+                Parent root = loader.load();
+
+                definitionStage = new Stage(StageStyle.UNDECORATED);
+
+                Scene scene = new Scene(root, 500, 300);
+                scene.getStylesheets().add(getClass().getResource("/com/languageplay/styles/definitionWindowStyle.css").toExternalForm());
+
+                definitionStage.setScene(scene);
+
+                String wordToLookup = label.getText();
+
+                // remove any special characters
+                String cleanedWord = wordToLookup.replaceAll("[^a-zA-Z0-9 ]", "");
+
+
+                String definition = dictionary.getDefinition(cleanedWord);
+
+                System.out.println("Defiinition retrieved for word " + cleanedWord + ": " + definition);
+
+                if (definition == null) {
+                    definition = "definition not found";
+                }
+
+                DefinitionWindow controller = loader.getController();
+                controller.setText(cleanedWord);
+                controller.setDefinition(definition);
+
+                definitionStage.setX(e.getScreenX() + 20);
+                definitionStage.setY(e.getScreenY() - 280);
+
+                definitionStage.show();
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+
+            label.setStyle("-fx-font-size: 30px; -fx-background-color: lightgrey;");
+
+
+        } else if (e.getEventType() == MouseEvent.MOUSE_EXITED) {
+
+            mediaPlayer.play();
+            label.setStyle("-fx-font-size: 25px; -fx-background-color: transparent;");
+            definitionStage.close();
+
         }
     }
 
@@ -193,12 +274,35 @@ public class VideoController extends AppWindow {
             mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
 
                 double currentTimeSeconds = newTime.toSeconds();
-
+                
                 // Checks to display the correct one
                 for (SubtitleLine sub : subtitles.getSubtitles()) {
+
+                    subtitleContainer.getChildren().retainAll(subtitleLabel);
+
                     // If the current time is within the subtitle's start and end time
                     if (currentTimeSeconds >= sub.getStartTime() && currentTimeSeconds <= sub.getEndTime()) {
-                        subtitleLabel.setText(sub.getDialogue()); // Show the subtitle text
+
+                        // make the dialogue string into an array of words
+                        String dialogueArr[] = sub.getDialogue().split(" ");
+
+                        // for every word in the sentence, create a label for it to be able to hover over it and do stuff
+
+                        for (String word : dialogueArr) {
+
+                            Label wordLabel = new Label(word);
+                            wordLabel.setStyle("-fx-font-size: 25px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);");
+                            wordLabel.addEventHandler(MouseEvent.MOUSE_ENTERED, this::handleHover);
+                            wordLabel.addEventHandler(MouseEvent.MOUSE_EXITED, this::handleHover);
+
+                            subtitleContainer.getChildren().add(wordLabel);
+
+                        }
+
+                        // now I want to loop through the array and for each element create a Label with the text being whatever
+                        // then, once I create a label for every word, every label should have a handle on hover handler
+
+                        // subtitleLabel.setText(sub.getDialogue()); // Show the subtitle text
                         return;
                     }
                 }

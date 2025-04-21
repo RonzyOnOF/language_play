@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<BorderPane fx:id="smallWindowContainer"  xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.languageplay.DefinitionWindow">
+    
+
+    <center>
+        <HBox styleClass="windowContainer" fx:id="wordContainer" spacing="20" >
+            <Label text="" styleClass="wordLookup" fx:id="wordLabel" />
+            <!-- <Label styleClass="partOfSpeech" fx:id="speechLabel" text="part of speech" /> -->
+            <Label styleClass="definitionLabel" fx:id="definitionLabel" text="" />
+        </HBox>
+    </center>
+
+
+</BorderPane>
+
+

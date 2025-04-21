@@ -116,8 +116,8 @@ public class VideoUtils {
         // TO DO: After sizing down, make it scale to get rid of black bars
         // after scaling down the video, if its almost size of user's screen, make it a more smaller
         if ((screenWidth - scaledWidth) < 15 || (screenHeight- scaledHeight) < 15) {
-            scaledWidth -= 200;
-            scaledHeight -= 200;
+            scaledWidth -= 140;
+            scaledHeight -= 140;
         }
 
         res[0] = scaledWidth;

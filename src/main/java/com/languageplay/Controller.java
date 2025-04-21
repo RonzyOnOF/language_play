@@ -27,6 +27,8 @@ import com.languageplay.factories.SrtSubtitleFactory;
 import com.languageplay.products.AssSubtitle;
 import com.languageplay.products.Subtitle;
 import com.languageplay.utils.SubExtensions;
+import com.languageplay.utils.Dictionary;
+
 
 
 // This file (Controller) adds logic to fxml files
@@ -52,6 +54,8 @@ public class Controller extends AppWindow {
 
     private double x;
     private double y;
+
+    private Dictionary dictionary = new Dictionary();
 
     // state for checking if there is a subtitle file and video file
     private BooleanProperty hasSubtitleFile = new SimpleBooleanProperty(false);
@@ -109,6 +113,7 @@ public class Controller extends AppWindow {
             }
         });
 
+        
     }
 
     public void openSubtitleFile(MouseEvent e) {
@@ -177,6 +182,7 @@ public class Controller extends AppWindow {
             videoController.setVideoFile(this.videoFile);
             videoController.setSubFile(this.subtitleFile);
             videoController.setSubtitles(this.subtitle);
+            videoController.setDictionary(this.dictionary);
             // check to see if video's resolution is greater than user's screen in order to scale appropriately
             resolution = utils.checkScreenResolution();
             stage.setScene(scene);
@@ -210,10 +216,9 @@ public class Controller extends AppWindow {
             case "srt":
                 subFormat = SubExtensions.SRT;
                 subFactory = new SrtSubtitleFactory();
-                // subFactory.createSubtitles(file) is doing srtSubtitleFactory(file)
                 subtitle = subFactory.createSubtitles(this.subtitleFile);
                 subtitle.readSubtitleFile(this.subtitleFile);
-                subtitle.getSubtitles();
+                // subtitle.getSubtitles();
                 break;
             default:
                 System.out.println("Sub format not supported at the moment :(");

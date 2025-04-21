@@ -68,12 +68,12 @@ Label {
     -fx-border-width: 5;
     -fx-translate-y: -50px;
     -fx-alignment: center;
-    /* -fx-border-color: rgb(155, 15, 15); */
-    -fx-pref-width: 100%;  /* Make the HBox take the full width */
+    -fx-pref-width: 100%;
+    -fx-spacing: 5;
 }
 
 .subtitle {
-    -fx-font-size: 26px;
+    -fx-font-size: 25px;
     -fx-wrap-text: true;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 2, 0.5, 1, 1);
 }
